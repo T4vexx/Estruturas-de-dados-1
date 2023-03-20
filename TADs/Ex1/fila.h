@@ -1,9 +1,9 @@
 typedef struct fila Tfila;
 
-void insere(Tfila *fila,int n);
+void insere(Tfila **fila,int n);
 
-int remover(Tfila *fila);
+int remover(Tfila **fila);
 
 void returnFila(Tfila *fila);
 
-void liberarFila(Tfila *fila);
+void liberarFila(Tfila **fila);
