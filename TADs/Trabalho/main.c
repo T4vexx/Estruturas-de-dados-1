@@ -1,8 +1,6 @@
 /*
   Lista linear sequencial
-  Dupla: 
   Otávio Augusto Teixeira
-  Rubens Aragão
   Exemplos mostrando criação, e varias usos das funções que já tinha e das que a gente implementou,
   inserção, remoção, buscar na lista, impressão da lista e outros.
 */
@@ -10,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "lista.c" // trocar para .h
+#include "lista.h" // trocar para .h
 
 //Função para ler e ja adicionar um intem na lista ordenada
 void criar(tipo_elem testElem, lista *test) {
@@ -81,7 +79,6 @@ int main() {
   printf("3 - imprimir elemento: \n");
   Impr_elem(testElem);
   printf("4 - Tamanho da lista: %d\n",Tamanho(test));
-
 
   system("PAUSE");
   return 0;

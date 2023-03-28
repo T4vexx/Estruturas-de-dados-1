@@ -1,3 +1,9 @@
+/*
+  Lista linear sequencial
+  Otávio Augusto Teixeira
+  Exemplos mostrando criação, e varias usos das funções que já tinha e das que a gente implementou,
+  inserção, remoção, buscar na lista, impressão da lista e outros.
+*/
 #include <stdlib.h> //Para usar malloc, free, exit ...
 #include <stdio.h>  //Para usar printf ,... 
 #include "lista.h"  //Carrega o arquivo .h criado

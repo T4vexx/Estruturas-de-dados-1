@@ -1,3 +1,10 @@
+/*
+  Lista linear sequencial
+  Otávio Augusto Teixeira
+  Exemplos mostrando criação, e varias usos das funções que já tinha e das que a gente implementou,
+  inserção, remoção, buscar na lista, impressão da lista e outros.
+*/
+
 //TAD: lista seq.
 #define MAX 100    //estimativa do tamanho m�ximo da lista
 #define TRUE 1     //define tipo boleano � n�o existe em C
@@ -21,6 +28,14 @@ typedef struct Tipo_elem {
    tipo_chave chave;
    tipo_dado info;
 } tipo_elem;
+/*
+  Lista linear sequencial
+  Dupla: 
+  Otávio Augusto Teixeira
+  Rubens Abrão Comelis
+  Exemplos mostrando criação, e varias usos das funções que já tinha e das que a gente implementou,
+  inserção, remoção, buscar na lista, impressão da lista e outros.
+*/
 typedef struct Lista {
    int nelem; //nro de elementos
    tipo_elem A[MAX+1];
