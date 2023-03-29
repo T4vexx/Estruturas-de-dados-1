@@ -149,7 +149,7 @@ boolean Inserir_ord(tipo_elem x, lista *L)
          }
       }
 
-      while(x.chave > L->A[i].chave && i <= L->nelem && i <= 101) {
+      while(x.chave > L->A[i].chave && i <= L->nelem && i <= MAX) {
          i++;
       }
 
