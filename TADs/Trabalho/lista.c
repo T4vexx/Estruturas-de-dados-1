@@ -9,7 +9,7 @@
 #include "lista.h"  //Carrega o arquivo .h criado
 
 #define MAX 100    //estimativa do tamanho m�ximo da lista
-#define TRUE 1     //define tipo boleano � n�o existe em C
+#define TRUE 1     //define tipo boleano � n�o existe em Cd
 #define FALSE 0
 #define boolean int
 
