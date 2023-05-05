@@ -343,10 +343,6 @@ bool Busca_remove(tree *p_raiz, tipo_dado elem)
 no *rotacaoEsquerda(no *p) {
    no *aux;
    int aux2;
-   if(!(p->dir != NULL && (p->dir)->dir != NULL)) {
-      printf("Rotação a esquerda impossivel");
-      return NULL;
-   } 
 
    aux2 = p->info.valor;
    p->info.valor = (p->dir)->info.valor;
@@ -362,4 +358,29 @@ no *rotacaoEsquerda(no *p) {
    }
    
    return p;
+}
+
+no *rotacaoDireita(no *p) {
+   no *aux;
+   int aux2;
+
+   aux2 = p->info.valor;
+   p->info.valor = (p->esq)->info.valor;
+   (p->esq)->info.valor = aux2;
+   aux = p->esq;
+   p->esq = (p->esq)->esq;
+   p->dir = aux;
+   aux->esq = NULL;
+   if((p->dir)->dir != NULL) {
+      aux = (p->dir)->dir;
+      (p->dir)->dir = NULL;
+      (p->dir)->esq = aux;
+   }
+   
+   return p;
+}
+
+no *rotacaoDuplaEsquerda(no *p) {
+   rotacaoDireita(p->dir);
+   rotacaoEsquerda(p);
 }

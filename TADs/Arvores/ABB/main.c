@@ -9,7 +9,6 @@ int main (){
 	//   2    6
 	//  / \  / \
 	// 1  3  5  7
-	// 
 	tree t;
 	Definir(t);
 
@@ -32,8 +31,8 @@ int main (){
 	// Insere_dir(t->esq, d);
 	
 	//Filhos do 6
-	d.valor = 5;
-	Insere_esq(t->dir, d);
+	// d.valor = 5;
+	// Insere_esq(t->dir, d);
 	d.valor = 7;
 	Insere_dir(t->dir, d);
 	
@@ -69,7 +68,7 @@ int main (){
 	Pre_ordem(t);
 	
 	printf("\n\n Pre Ordem  2\n");	
-	Pre_ordem(rotacaoEsquerda(t));
+	Pre_ordem(mateus(t));
 	//printf("\n\n Em Ordem \n");	
 	//In_ordem(t);
 	
