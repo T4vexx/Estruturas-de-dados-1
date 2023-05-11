@@ -68,7 +68,7 @@ int main (){
 	Pre_ordem(t);
 	
 	printf("\n\n Pre Ordem  2\n");	
-	Pre_ordem(mateus(t));
+	Pre_ordem(rotacaoEsquerda(t));
 	//printf("\n\n Em Ordem \n");	
 	//In_ordem(t);
 	

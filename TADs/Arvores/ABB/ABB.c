@@ -303,9 +303,9 @@ void Substitui_menor_a_direita(tree *p, tree *suc)
       
       //Atualizar o ponteiro p na �rvore (nao necessario p essa proposta)
       //*p = *suc;
-   } 
-   else
+   } else {
       Substitui_menor_a_direita(p, &(*suc)->esq);
+   } 
 }
 
 //Fun��o (recursiva) para buscar e remover um elemento com um
