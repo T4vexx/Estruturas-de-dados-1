@@ -1,3 +1,4 @@
+//Otavio Augusto Teixeira - Arvore AVL
 #include <stdio.h>
 #include "AVL.c"
 
@@ -28,6 +29,8 @@ int main() {
     removerEBalancear(&raiz,15);
     removerEBalancear(&raiz,7);
     removerEBalancear(&raiz,20);
+    removerEBalancear(&raiz,30);
+    removerEBalancear(&raiz,2);
 
     //Exemplo de print em ordem da ávore
     inOrdem(raiz);

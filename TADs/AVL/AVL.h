@@ -1,3 +1,4 @@
+//Otavio Augusto Teixeira - Arvore AVL
 #include <stdbool.h> //Para usar true or false
 
 //Estruturas e tipos
