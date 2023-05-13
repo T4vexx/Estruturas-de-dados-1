@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <stdbool.h> //Para usar true or false
 
 //Estruturas e tipos
 //-------------------------------------------
@@ -11,7 +11,7 @@ typedef struct no {
 } no;
 
 //Declarações de funções/operações
-//------------------------------------------------------
+//------------------------------- Funções auxiliares -------------------------------
 //Verifica se a AB é vazia
 bool Vazia (no *t);
 
@@ -37,13 +37,28 @@ no *rotacaoDuplaDireita(no *t);
 no *rotacaoDuplaEsquerda(no *t);
 
 //Função que realiza as rotações
-void rotacionar(no *t);
+void rotacionar(no **t);
 
+//------------------------------- Inserção -------------------------------
 //Função que primeiro insere o valor e depois checa se esta balanceado, caso nao esteja promove as rotações
-no *inserirEBalancear(no **t,int info);
+void inserirEBalancear(no **t,int info);
 
 //Função que busca e insere o elemento
-no *inserir(no **t,int info);
+void inserir(no **t,int info);
 
+//------------------------------- Remoção -------------------------------
+//Função para remover um no pelo info e balancear a arvore após isso
+bool removerEBalancear(no **raiz, int info);
+
+//Função que remove um nó
+bool remover(no **raiz, int info);
+
+//Função que substitui o no com 2 filhos pelo menor a direita
+void substituiPeloMenorADireita(no **p, no **suc);
+
+//Função que remove um no em especifico
+void removeNo(no **raiz);
+
+//------------------------------- Prints -------------------------------
 //Função que printa a arvore em pre-ordem
-void preOrdem(no *t);
+void inOrdem(no *t);

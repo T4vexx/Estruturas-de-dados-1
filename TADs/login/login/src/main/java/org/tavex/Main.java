@@ -1,49 +1,27 @@
 package org.tavex;
 
-import java.nio.Buffer;
-import java.util.Scanner;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        int opt = 0;
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in = new Scanner("."+ File.separator+"palavras.txt");
+        SortedMap<String,Integer> lista = new TreeMap<String,Integer>();
+        List<String> listaCerta = new LinkedList<>();
 
-        do {
-            System.out.println("Digite a opção desejada:\n>0 - Registrar conta\n>1 - Logar conta\n>2 - Sair");
-            opt = in.nextInt();
-
-            switch (opt) {
-                case 0:
-                    registrar(in);
-                    break;
-                case 1:
-                    logar(in);
-                    break;
-                case 2:
-                    break;
+        while(in.hasNext()) {
+            String palavra = in.next();
+            if(lista.containsKey(palavra)) {
+                lista.replace(palavra,lista.get(palavra),lista.get(palavra) + 1);
+            } else {
+                lista.put(in.next(),1);
             }
+            listaCerta.add(palavra);
+        }
 
-        } while(!(opt < 0 || opt > 2));
-
-        in.close();
-    }
-
-    static public void registrar(Scanner in) {
-        String nome;
-        String usuario;
-        String senha;
-
-        System.out.println("Digite seu nome completo");
-        nome = in.nextLine();
-        System.out.println("Digite um nome de usuario");
-        usuario = in.nextLine();
-        System.out.println("Digite uma senha");
-        senha = in.nextLine();
-
-        senha = BCry
-    }
-
-    static public void logar(Scanner in) {
 
     }
+
 }
