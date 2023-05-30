@@ -1,9 +1,10 @@
+//Otavio Augusto Teixeira - Arvore AVL
 #include <stdlib.h>     //Para usar malloc, free, exit ...
 #include <stdio.h>      //Para usar printf ,... 
 #include "AVL.h"
 
 //Operações
-//------------------------------------------------------
+//------------------------------- Funções auxiliares -------------------------------
 //Verifica se a AB é vazia
 bool Vazia (no *t) {
     if(t == NULL) {
@@ -17,11 +18,11 @@ bool Vazia (no *t) {
 int Altura (no *t)
 {	
 	if (Vazia(t)) {
-		printf("Vazio\n");
+		//printf("Vazio\n");
 		return 0;
 	}
 
-   int altE = Altura (t->esq);
+   int altE = Altura(t->esq);
    int altD = Altura (t->dir);
    
    if (altE > altD) {
@@ -31,7 +32,7 @@ int Altura (no *t)
 }
 
 //Define nó raiz
-no *criarRaiz (int info) {
+no *criarRaiz(int info) {
     no *t;
     t = malloc(sizeof(no));
     if(!t) {
@@ -84,70 +85,132 @@ no *rotacaoSimplesDireita(no *p) {
 
 //Função que rotaciona duplamente um no a direita
 no *rotacaoDuplaDireita(no *t) {
-    t = rotacaoSimplesEsquerda(t);
+    t->esq = rotacaoSimplesEsquerda(t->esq);
     t = rotacaoSimplesDireita(t);
 }
 
 //Função que rotaciona duplamente um no a esquerda
 no *rotacaoDuplaEsquerda(no *t) {
-    t = rotacaoSimplesDireita(t);
+    t->dir = rotacaoSimplesDireita(t->dir);
     t = rotacaoSimplesEsquerda(t);
 }
 
 //Função que realiza as rotações
-void rotacionar(no *t) {
+void rotacionar(no **t) {
     no *aux;
-
-    if(t != NULL) {
-        if(t->balance > 1) {
-            if(t->dir->balance < 0) {
-                aux = rotacaoDuplaEsquerda(t->esq);
-                t->esq = aux;
+    if(*t != NULL) {
+        rotacionar(&(*t)->esq);
+        rotacionar(&(*t)->dir);
+        balancear(*t);
+        if((*t)->balance > 1) {
+            if(((*t)->dir)->balance < 0) {
+                aux = rotacaoDuplaEsquerda(*t);
+                (*t) = aux;
+                return;
             } else {
-                aux = rotacaoSimplesEsquerda(t->esq);
-                t->esq = aux;
+                aux = rotacaoSimplesEsquerda(*t);
+                (*t) = aux;
+                return;
             }
-        } else if(t->balance < -1) {
-            if(t->esq->balance > 0) {
-                aux = rotacaoDuplaDireita(t->dir);
-                t->dir = aux;
+        } else if((*t)->balance < -1) {
+            if(((*t)->esq)->balance > 0) {
+                aux = rotacaoDuplaDireita(*t);
+                (*t) = aux;
+                return;
             } else {
-                aux = rotacaoSimplesDireita(t->dir);
-                t->dir = aux;
+                aux = rotacaoSimplesDireita(*t);
+                (*t) = aux;
+                return;
             }
         }
+        return;
     }
 }
 
+//------------------------------- Inserção -------------------------------
 //Função que primeiro insere o valor e depois checa se esta balanceado, caso nao esteja promove as rotações
-no *inserirEBalancear(no **t,int info) {
-    inserir(*t,info);
-    balancear(t);
+void inserirEBalancear(no **t,int info) {
+    inserir(t,info);
+    balancear(*t);
     rotacionar(t);
 }
 
 //Função que busca e insere o elemento
-no *inserir(no **t,int info) {
+void inserir(no **t,int info) {
     if((*t) == NULL) {
         (*t) = criarRaiz(info);
-        return (*t);
+        return;
     }
 
     if (info < (*t)->info) {
-        (*t)->esq = inserir((*t)->esq, info);
-        return NULL;
+        inserir(&(*t)->esq, info);
     }
     if (info > (*t)->info) {
-        (*t)->dir = inserir((*t)->dir, info);
-        return NULL;
+        inserir(&(*t)->dir, info);
     }
 }
 
+//------------------------------- Remoção -------------------------------
+//Função para remover um no pelo info e balancear a arvore após a remoção
+bool removerEBalancear(no **raiz, int info) {
+    bool resp;
+    resp = remover(raiz,info);
+    balancear(*raiz);
+    rotacionar(raiz);
+    return resp;
+}
+
+//Função que remove um nó
+void removeNo(no **raiz) {
+    no *aux;
+    if((*raiz)->esq == NULL) {
+        aux = *raiz;
+        *raiz = (*raiz)->dir;
+        free(aux);
+    } else if((*raiz)->dir == NULL) {
+        aux = *raiz;
+        *raiz = (*raiz)->esq;
+        free(aux);
+    } else {
+        substituiPeloMenorADireita(raiz,&(*raiz)->dir);
+    }
+}
+
+//Função que substitui o no com 2 filhos pelo menor a direita
+void substituiPeloMenorADireita(no **p, no **suc) {
+    no *aux;
+    if((*suc)->esq == NULL) {
+        (*p)->info = (*suc)->info;
+        aux = *suc;
+        *suc = (*suc)->dir;
+        free(aux);
+    } else {
+        substituiPeloMenorADireita(p,&(*suc)->esq);
+    }
+}
+
+//Função que remove um no em especifico
+bool remover(no **raiz, int info) {
+    if((*raiz) == NULL) {
+        return false;
+    }
+    if((*raiz)->info == info) {
+        removeNo(raiz);
+        return true;
+    }
+    if((*raiz)->info > info) {
+        return remover(&((*raiz)->esq), info);
+    } else {
+        return remover(&((*raiz)->dir), info);  
+    }
+}
+
+//------------------------------- Prints -------------------------------
 //Função que printa a arvore em pre-ordem
-void preOrdem(no *t) {
+void inOrdem(no *t) {
     if(t != NULL) {
-      printf("[%d]\n");
-      preOrdem(t->esq);
-      preOrdem(t->dir);
+      inOrdem(t->esq);
+      printf("[%d]\n",t->info);
+      inOrdem(t->dir);
     }
 }
