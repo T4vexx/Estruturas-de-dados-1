@@ -65,52 +65,54 @@ bool Remover(fila *q, int *elem) {
 //matriz A (de adj.): representa as conex�es entre as cidades 0,...,N-1, 
 //vetor 'dist': dist[i] � a dist�ncia da cidade fixada 'c' at� cada cidade 'i'
 int main() {
-   int i, j, c = 0,tam;
+    int i, j, c = 0,tam;
 	fila F;
-   FILE *fp;
-   int bsize = 20;
+    FILE *fp;
+    int bsize = 20;
 	char buffer[bsize];
-   int *dist,*mat;
+    int *dist,*mat;
 
-
-   // fp = fopen("digrafo.txt","r");
-	// fgets(buffer, bsize, fp);
-	// sscanf(buffer, "%d", &tam);
-   tam = 5;
+     fp = fopen("digrafo.txt","r");
+     fgets(buffer, bsize, fp);
+     // sscanf(buffer, "%d", &tam);
+     tam = 5;
    
-   mat = (int *)malloc(tam * tam * sizeof(int));
-   dist = (int *)malloc(tam * sizeof(int));
+     mat = (int *)malloc(tam * tam * sizeof(int));
+     dist = (int *)malloc(tam * sizeof(int));
+
+    while(!feof(fp)) {
+        fgets(buffer, bsize, fp);
+        sscanf(buffer, "%d %d %d",&o,&d,&val_peso);
+        printf("%d %d %d\n",o,d,val_peso);
+        
+    }
+
+    //Inicializa��o da matriz com as cidades interconectadas
+    //int A[N][N] = { {0,1,0,1,1}, {0,0,1,0,0}, {0,0,0,0,1}, {0,0,1,0,1}, {0,0,0,1,0} };
+    //int dist[N];
 
 
+    for (j=0; j<tam; j++) {
+        dist[j] = tam;
+    }
+    //Seta dist[j] = inf, todo j
 
-	//Inicializa��o da matriz com as cidades interconectadas
-	//int A[N][N] = { {0,1,0,1,1}, {0,0,1,0,0}, {0,0,0,0,1}, {0,0,1,0,1}, {0,0,0,1,0} };
-	//int dist[N];
-	
-	
-	for (j=0; j<tam; j++) {
-      dist[j] = tam; 
-   }  
-	//Seta dist[j] = inf, todo j
-    
-	dist[c] = 0;
-   Definir(&F);           //Cria fila
-   Inserir(&F,c);         //Insere na fila
 
-   //Roda at� que todos os n�s tenham sido checados pelo crit�rio abaixo: 
-	//tira da fila uma cidade i, e coloca na fila as cidades vizinhas j com distancias � computadas
-   while (!Vazia(&F)) { 
-      Remover(&F,&i);       //Remove da fila (i � o elemento corrente a partir daqui)
-      for (j=0; j<N; j++) {
-         if (A[i][j] == 1 && dist[j] >= N) { //Se i tem conexao com j E j ainda nao checado
-            dist[j] = dist[i] + 1;
-            Inserir(&F,j);
-         }
-      }    
-   }
-	
-	//Imprime vetor de dist�ncias de 'c' para as demais cidades 'i'
-	for (i=0; i<N; i++) {
-      printf("dist[%d]: %d\n", i, dist[i]);	
-   }   
+    dist[c] = 0;
+    Definir(&F);           //Cria fila
+    Inserir(&F,c);         //Insere na fila
+    //Roda at� que todos os n�s tenham sido checados pelo crit�rio abaixo:
+    //tira da fila uma cidade i, e coloca na fila as cidades vizinhas j com distancias � computadas
+    while (!Vazia(&F)) {
+        Remover(&F,&i);       //Remove da fila (i � o elemento corrente a partir daqui)
+        for (j=0; j<N; j++) {
+            if (A[i][j] == 1 && dist[j] >= N) { //Se i tem conexao com j E j ainda nao checadodist[j] = dist[i] + 1;Inserir(&F,j);
+            }
+        }
+    }
+
+    //Imprime vetor de dist�ncias de 'c' para as demais cidades 'i'
+    for (i=0; i<N; i++) {
+        printf("dist[%d]: %d\n", i, dist[i]);
+    }
 }
